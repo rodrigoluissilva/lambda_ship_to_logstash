@@ -14,11 +14,11 @@ with open('resources/awslogs-event.json') as data_file:
     awslogs_data = json.load(data_file)
 
 
-# Attach Logmatic.io's Socket
+# Attach Logstash's Socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 
-s.connect(("api.logmatic.io", 10514))
+s.connect(("localhost", 10514))
 
 
 class TestsLambda(unittest.TestCase):
