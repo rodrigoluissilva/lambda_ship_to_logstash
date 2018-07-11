@@ -111,7 +111,7 @@ def s3_handler(s, event):
         cloud_trail = json.loads(data)
         for event in cloud_trail['Records']:
             # Create structured object
-            structured_line = merge_dicts(event, {"aws": {"s3": {"bucket": bucket, "key": key}}})
+            structured_line = merge_dicts(event, {"aws": {"s3": {"bucket": bucket, "key": key}}, "type": "aws-cloudtrail"})
             structured_logs.append(structured_line)
     else:
         # Send lines to Logstash
