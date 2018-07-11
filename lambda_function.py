@@ -63,6 +63,9 @@ def lambda_handler(event, context):
         elif event_type == "awslogs":
             logs = awslogs_handler(s, event)
 
+        elif event_type == "sns":
+            logs = s3_handler(s, json.loads(event["Records"][0]["Sns"]["Message"]))
+
         for log in logs:
             send_entry(s, log)
 
@@ -81,6 +84,8 @@ def parse_event_type(event):
     if "Records" in event and len(event["Records"]) > 0:
         if "s3" in event["Records"][0]:
             return "s3"
+        elif "Sns" in event["Records"][0] and "Records" in event["Records"][0]["Sns"]["Message"]:
+            return "sns"
 
     elif "awslogs" in event:
         return "awslogs"
