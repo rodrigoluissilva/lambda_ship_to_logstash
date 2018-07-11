@@ -43,7 +43,11 @@ def lambda_handler(event, context):
         s = ssl.wrap_socket(s)
         port = ssl_port
 
-    s.connect((host, port))
+    try:
+        s.connect((host, port))
+    except Exception as e:
+        error_message = "{} (host: {}, raw_port: {}, ssl_port: {}, enable_security: {})".format(str(e), host, raw_port, ssl_port, enable_security)
+        raise Exception(error_message)
 
     # Add the context to meta
     metadata["aws"] = {}
