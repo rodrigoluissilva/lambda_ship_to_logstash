@@ -21,12 +21,12 @@ metadata = {
 }
 
 # Constants
-raw_port = os.environ.get("raw_port", 10514)
+raw_port = int(os.environ.get("raw_port", 10514))
 
 # SSL security
 # while creating the lambda function
-enable_security = os.environ.get("enable_security", True)
-ssl_port = os.environ.get("ssl_port", 10515)
+enable_security = os.environ.get("enable_security", "True")
+ssl_port = int(os.environ.get("ssl_port", 10515))
 
 
 def lambda_handler(event, context):
@@ -39,7 +39,7 @@ def lambda_handler(event, context):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     port = raw_port
-    if enable_security:
+    if enable_security.lower() in ["true", "yes", "t", "y", "1"]:
         s = ssl.wrap_socket(s)
         port = ssl_port
 
