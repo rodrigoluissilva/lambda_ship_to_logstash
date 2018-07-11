@@ -80,9 +80,9 @@ def lambda_handler(event, context):
 
     except Exception as e:
         # Logs through the socket the error
-        err_message = 'Error parsing the object. Exception: {}'.format(str(e))
+        err_message = 'Error parsing the object \n{}\nException: {}'.format(json.dumps(event), str(e))
         send_entry(s, err_message)
-        raise e
+        raise Exception(err_message)
     finally:
         s.close()
 
