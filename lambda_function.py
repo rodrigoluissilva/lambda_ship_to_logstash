@@ -55,6 +55,7 @@ def lambda_handler(event, context):
     metadata["aws"]["function_version"] = context.function_version
     metadata["aws"]["invoked_function_arn"] = context.invoked_function_arn
     metadata["aws"]["memory_limit_in_mb"] = context.memory_limit_in_mb
+    metadata["aws"]["aws_request_id"] = context.aws_request_id
 
     try:
 
