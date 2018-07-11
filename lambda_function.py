@@ -14,10 +14,10 @@ import os
 # Parameters
 host = os.environ.get("logstash_host", None)
 metadata = {
-    "your_metafields": {
-        "backend": "python"
-    },
-    "some_field": "change_me"
+    #"your_metafields": {
+    #    "backend": "python"
+    #},
+    #"some_field": "change_me"
 }
 
 # Constants
