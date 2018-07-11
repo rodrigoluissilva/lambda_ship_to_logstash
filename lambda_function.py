@@ -71,6 +71,10 @@ def lambda_handler(event, context):
         elif event_type == "sns":
             logs = s3_handler(s, json.loads(event["Records"][0]["Sns"]["Message"]))
 
+        elif event_type == "s3:TestEvent":
+            print("Skipping s3:TestEvent")
+            logs = []
+
         for log in logs:
             send_entry(s, log)
 
@@ -91,6 +95,8 @@ def parse_event_type(event):
             return "s3"
         elif "Sns" in event["Records"][0] and "Records" in event["Records"][0]["Sns"]["Message"]:
             return "sns"
+        elif "Sns" in event["Records"][0] and "Event" in event["Records"][0]["Sns"]["Message"] and "s3:TestEvent" in event["Records"][0]["Sns"]["Message"]:
+            return "s3:TestEvent"
 
     elif "awslogs" in event:
         return "awslogs"
