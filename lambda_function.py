@@ -9,9 +9,10 @@ import ssl
 import re
 import StringIO
 import gzip
+import os
 
 # Parameters
-host = "<logstash_host>"
+host = os.environ.get("logstash_host", None)
 metadata = {
     "your_metafields": {
         "backend": "python"
@@ -20,17 +21,17 @@ metadata = {
 }
 
 # Constants
-raw_port = 10514
+raw_port = os.environ.get("raw_port", 10514)
 
 # SSL security
 # while creating the lambda function
-enable_security = True
-ssl_port = 10515
+enable_security = os.environ.get("enable_security", True)
+ssl_port = os.environ.get("ssl_port", 10515)
 
 
 def lambda_handler(event, context):
     # Check prerequisites
-    if host == "<logstash_host>" or host == "":
+    if host is None or host == "":
         raise Exception(
                 "You must configure your Logstash hostname before starting this lambda function (see #Parameters section)")
 
