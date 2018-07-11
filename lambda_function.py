@@ -193,6 +193,6 @@ def merge_dicts(a, b, path=None):
 
 
 def is_cloudtrail(key):
-    regex = re.compile('\d+_CloudTrail_\w{2}-\w{4,9}-[12]_\d{8}T\d{4}Z.+.json.gz$', re.I)
+    regex = re.compile('\d+_CloudTrail_\w{2}-\w+-\d{1}_\d{8}T\d{4}Z.+.json.gz$', re.I)
     match = regex.search(key)
     return bool(match)
